@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; connect-src 'self' http://localhost:*; script-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline';"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: transparent;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden;
+      }
+
+      #container {
+        background: rgba(0, 0, 0, 0.85);
+        width: 300px;
+        height: 200px;
+        position: relative;
+        box-sizing: border-box;
+      }
+
+      .carousel {
+        width: 600px;
+        height: 200px;
+        display: flex;
+        position: absolute;
+        left: 0;
+        transition: transform 0.5s ease;
+      }
+
+      .slide {
+        width: 300px;
+        height: 200px;
+        flex-shrink: 0;
+        color: white;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .rank-info-slide {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .rank-icon {
+        width: 50%;
+        height: 64px;
+        object-fit: contain;
+      }
+
+      .rank-icon:not([src]) {
+        display: block;
+        min-width: 64px;
+        min-height: 64px;
+      }
+
+      .info-text {
+        flex: 1;
+      }
+
+      .summoner-name {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: white;
+      }
+
+      .rank-info {
+        font-size: 16px;
+        color: #a8c6ff;
+        margin-bottom: 4px;
+        line-height: 1.4;
+      }
+
+      .daily-stats {
+        text-align: center;
+        padding-top: 30px;
+      }
+
+      .daily-header {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: white;
+      }
+
+      .win-loss {
+        font-size: 32px;
+        margin-bottom: 16px;
+        color: #4ade80;
+      }
+
+      .kda {
+        font-size: 22px;
+        color: #a8c6ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div class="carousel">
+        <div class="slide rank-info-slide">
+          <img class="rank-icon" style="display: none" />
+          <div class="info-text">
+            <div class="summoner-name"></div>
+            <div class="rank-info rank-lp"></div>
+            <div class="rank-info win-rate"></div>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="daily-stats">
+            <div class="daily-header">Daily Stats</div>
+            <div class="win-loss"></div>
+            <div class="kda"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./overlay.js"></script>
+  </body>
+</html>

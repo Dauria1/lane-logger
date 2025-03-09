@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';"
+    />
+    <title>Lane Logger Config</title>
+    <style>
+      :root {
+        --bg-primary: #1a1a2e;
+        --bg-secondary: #16213e;
+        --accent: #0f3460;
+        --text: #e9ecef;
+        --primary: #4361ee;
+        --success: #4bb543;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text);
+        line-height: 1.6;
+        padding: 2rem;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: var(--bg-secondary);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+      }
+
+      h2 {
+        font-size: 1.2rem;
+        margin: 1.5rem 0 1rem;
+        color: var(--text);
+      }
+
+      .input-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--accent);
+        background-color: var(--bg-primary);
+        color: var(--text);
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.3);
+      }
+
+      .lanes-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+      }
+
+      input[type='checkbox'] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+      }
+
+      .button-container {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 0.1s,
+          background-color 0.2s;
+      }
+
+      button:active {
+        transform: translateY(1px);
+      }
+
+      #submit-button {
+        background-color: var(--primary);
+        color: white;
+        flex: 1;
+      }
+
+      #refresh-button {
+        background-color: var(--accent);
+        color: white;
+      }
+
+      #server-status {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: var(--bg-primary);
+        border-radius: 6px;
+        font-size: 0.9rem;
+      }
+    </style>
+    <script src="./renderer.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>LaneLogger</h1>
+
+      <div class="input-group">
+        <label for="summonerNamesURL">OP.GG Multisearch URL</label>
+        <input
+          type="text"
+          id="summonerNamesURL"
+          required
+          placeholder="https://www.op.gg/multisearch..."
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="region">Region</label>
+        <select id="region">
+          <optgroup label="Americas">
+            <option value="na">NA</option>
+            <option value="br">BR</option>
+            <option value="lan">LAN</option>
+            <option value="las">LAS</option>
+          </optgroup>
+          <optgroup label="Europe">
+            <option value="euw">EUW</option>
+            <option value="eune">EUNE</option>
+            <option value="tr">TR</option>
+            <option value="ru">RU</option>
+          </optgroup>
+          <optgroup label="Asia">
+            <option value="kr">KR</option>
+            <option value="jp">JP</option>
+          </optgroup>
+          <optgroup label="SEA">
+            <option value="oce">OCE</option>
+            <option value="ph2">PH</option>
+            <option value="sg2">SG</option>
+            <option value="th2">TH</option>
+            <option value="tw2">TW</option>
+            <option value="vn2">VN</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <h2>Displayed Lanes</h2>
+      <div class="lanes-container">
+        <label class="checkbox-label">
+          <input type="checkbox" name="lanes" value="TOP" checked />
+          TOP
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" name="lanes" value="JUNGLE" checked />
+          JUNGLE
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" name="lanes" value="MIDDLE" checked />
+          MID
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" name="lanes" value="BOTTOM" checked />
+          BOT
+        </label>
+      </div>
+
+      <div class="button-container">
+        <button id="submit-button">View Stats</button>
+        <button id="refresh-button">Refresh</button>
+      </div>
+
+      <div id="server-status">Server Status: Stopped</div>
+    </div>
+  </body>
+</html>
